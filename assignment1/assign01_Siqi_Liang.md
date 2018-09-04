@@ -1,6 +1,6 @@
 # Assignment01
 
-From Siqi Liang (liangsiq@usc.edu)
+__From Siqi Liang (liangsiq@usc.edu)__
 
 ### Part I
 
@@ -63,4 +63,12 @@ print('That is\n logT = %.4f * logN %.4f' % (theta[0], theta[1]))
 The result is $\alpha = 1.9506$
 
 #### I-2. Theoretical Flop/s Performance
+
+For each clock cycle, each core performs $4 \times 2 \times 2 = 16 flop$, so
+
+the theoretical peak performance of your computer  is $4 \times 3 \times 10^9 \times 16flop = 192 \times 10^9 flop/s = 192 Gflop/s$.
+
+
+
+### Part II
 

@@ -1,0 +1,12 @@
+procedure hypercube(myid, input, logP, output)
+begin
+  mydone := input;
+  for l := 0 to logP-1 do
+  begin
+    partner := myid XOR 2-to-the-power-l;
+    send mydone to partner;
+    receive hisdone from partner;
+    mydone = mydone OP hisdone
+  end
+  output := mydone
+end

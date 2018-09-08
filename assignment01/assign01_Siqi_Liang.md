@@ -6,7 +6,7 @@ __From Siqi Liang (liangsiq@usc.edu)__
 
 #### I-1. Measuring Computational Complexity 
 
-![logN_logT_plot](./logN_logT_plot.png)
+![logN_logT_plot](./log10N_log10T_plot.png)
 
 Code for plotting:
 
@@ -17,14 +17,14 @@ import numpy as np
 data_path = './MDtime.txt'
 data = np.loadtxt(data_path)
 N_data = data[:,0]
-logN = np.log(N_data)
+logN = np.log10(N_data)
 T_data = data[:,1]
-logT = np.log(T_data)
+logT = np.log10(T_data)
 
 # plot and save the figure
 plt.plot(logN, logT,'ro-')
-plt.xlabel('log(N)')
-plt.ylabel('log(T)')
+plt.xlabel('$log_{10}(N)$')
+plt.ylabel('$log_{10}(T)$')
 plt.title('log-log plot of T vs. N')
 plt.xlim((8,11.5))
 plt.ylim((-1,5))
@@ -64,9 +64,9 @@ The result is $\alpha = 1.9506$
 
 #### I-2. Theoretical Flop/s Performance
 
-For each clock cycle, each core performs $4 \times 2 \times 2 = 16 flop$, so
+For each clock cycle, each core performs $4 \times 2 = 8 flop$, so
 
-the theoretical peak performance of your computer  is $4 \times 3 \times 10^9 \times 16flop = 192 \times 10^9 flop/s = 192 Gflop/s$.
+the theoretical peak performance of your computer  is $4 \times 3 \times 10^9 \times 8flop = 96 \times 10^9 flop/s = 96 Gflop/s$.
 
 
 

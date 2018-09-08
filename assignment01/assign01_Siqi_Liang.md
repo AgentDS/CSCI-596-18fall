@@ -72,3 +72,150 @@ the theoretical peak performance of your computer  is $4 \times 3 \times 10^9 \t
 
 ### Part II
 
+File __global_driver.c__:
+
+```c
+#include "mpi.h"
+#include <stdio.h>
+int nprocs;  /* Number of processors */
+int myid;    /* My rank */
+
+double global_sum(double partial) {
+    /* Implement your own global summation here */
+    double mydone, hisdone;
+    int bitvalue, partner;
+    MPI_Status status;
+    mydone = partial;
+    
+    for(bitvalue=1;bitvalue<nprocs;bitvalue*=2){
+        partner = myid ^ bitvalue;
+        MPI_Send(&mydone, 1, MPI_DOUBLE,partner, bitvalue, MPI_COMM_WORLD);    // bitvalue is treated as communication label here
+        MPI_Recv(&hisdone, 1, MPI_DOUBLE,partner, bitvalue, MPI_COMM_WORLD, &status);
+        mydone += hisdone;
+    }
+    return mydone;
+}
+
+int main(int argc, char *argv[]) {
+    double partial, sum, avg;
+    
+    MPI_Init(&argc, &argv);
+    MPI_Comm_rank(MPI_COMM_WORLD, &myid);
+    MPI_Comm_size(MPI_COMM_WORLD, &nprocs);
+    
+    partial = (double) myid;
+    printf("Rank %d has %le\n", myid, partial);
+    sum = global_sum(partial);
+    if (myid == 0) {
+        avg = sum/nprocs;
+        printf("Global average = %le\n", avg);
+    }
+    MPI_Finalize();
+    return 0;
+}
+```
+
+##### 4 Processors
+
+File __global.sl__:
+
+```bash
+#!/bin/bash
+#SBATCH --ntasks-per-node=4
+#SBATCH --nodes=1
+#SBATCH --time=00:00:59
+#SBATCH --output=global.out
+#SBATCH -A lc_an2
+WORK_HOME=/home/rcf-proj/an2/Your_ID
+cd $WORK_HOME
+srun -n $SLURM_NTASKS --mpi=pmi2 ./global
+srun -n             4 --mpi=pmi2 ./global
+```
+
+Output result __global.out__:
+
+```
+/var/spool/slurm/slurmd/spool/job1476346/slurm_script: line 8: cd: /home/rcf-proj/an2/Your_ID: No such file or directory
+----------------------------------------
+Begin SLURM Prolog Sat 08 Sep 2018 04:25:03 PM PDT 
+Job ID:        1476346
+Username:      liangsiq
+Accountname:   lc_an2
+Name:          global.sl
+Partition:     quick
+Nodes:         hpc1120
+TasksPerNode:  4
+CPUSPerTask:   Default[1]
+TMPDIR:        /tmp/1476346.quick
+SCRATCHDIR:    /staging/scratch/1476346
+Cluster:       uschpc
+HSDA Account:  false
+End SLURM Prolog
+----------------------------------------
+Node 0 has 0.000000e+00
+Global average = 1.500000e+00
+Node 3 has 3.000000e+00
+Node 1 has 1.000000e+00
+Node 2 has 2.000000e+00
+Node 1 has 1.000000e+00
+Node 0 has 0.000000e+00
+Global average = 1.500000e+00
+Node 2 has 2.000000e+00
+Node 3 has 3.000000e+00
+```
+
+
+
+##### 8 Processors
+
+File __global.sl__:
+
+```bash
+#!/bin/bash
+#SBATCH --ntasks-per-node=4
+#SBATCH --nodes=2
+#SBATCH --time=00:00:59
+#SBATCH --output=global.out
+#SBATCH -A lc_an2
+WORK_HOME=/home/rcf-proj/an2/Your_ID
+cd $WORK_HOME
+srun -n $SLURM_NTASKS --mpi=pmi2 ./global
+srun -n             4 --mpi=pmi2 ./global
+```
+
+Output result __global.out__:
+
+```
+/var/spool/slurm/slurmd/spool/job1474148/slurm_script: line 8: cd: /home/rcf-proj/an2/Your_ID: No such file or directory
+----------------------------------------
+Begin SLURM Prolog Fri 07 Sep 2018 04:21:29 PM PDT 
+Job ID:        1474148
+Username:      liangsiq
+Accountname:   lc_an2
+Name:          global.sl
+Partition:     quick
+Nodes:         hpc[4465,4467]
+TasksPerNode:  4(x2)
+CPUSPerTask:   Default[1]
+TMPDIR:        /tmp/1474148.quick
+SCRATCHDIR:    /staging/scratch/1474148
+Cluster:       uschpc
+HSDA Account:  false
+End SLURM Prolog
+----------------------------------------
+Node 4 has 4.000000e+00
+Node 0 has 0.000000e+00
+Global average = 3.500000e+00
+Node 2 has 2.000000e+00
+Node 1 has 1.000000e+00
+Node 3 has 3.000000e+00
+Node 6 has 6.000000e+00
+Node 5 has 5.000000e+00
+Node 7 has 7.000000e+00
+Node 1 has 1.000000e+00
+Node 2 has 2.000000e+00
+Node 0 has 0.000000e+00
+Global average = 1.500000e+00
+Node 3 has 3.000000e+00
+```
+

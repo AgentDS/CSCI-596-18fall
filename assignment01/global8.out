@@ -1,0 +1,31 @@
+/var/spool/slurm/slurmd/spool/job1474148/slurm_script: line 8: cd: /home/rcf-proj/an2/Your_ID: No such file or directory
+----------------------------------------
+Begin SLURM Prolog Fri 07 Sep 2018 04:21:29 PM PDT 
+Job ID:        1474148
+Username:      liangsiq
+Accountname:   lc_an2
+Name:          global.sl
+Partition:     quick
+Nodes:         hpc[4465,4467]
+TasksPerNode:  4(x2)
+CPUSPerTask:   Default[1]
+TMPDIR:        /tmp/1474148.quick
+SCRATCHDIR:    /staging/scratch/1474148
+Cluster:       uschpc
+HSDA Account:  false
+End SLURM Prolog
+----------------------------------------
+Node 4 has 4.000000e+00
+Node 0 has 0.000000e+00
+Global average = 3.500000e+00
+Node 2 has 2.000000e+00
+Node 1 has 1.000000e+00
+Node 3 has 3.000000e+00
+Node 6 has 6.000000e+00
+Node 5 has 5.000000e+00
+Node 7 has 7.000000e+00
+Node 1 has 1.000000e+00
+Node 2 has 2.000000e+00
+Node 0 has 0.000000e+00
+Global average = 1.500000e+00
+Node 3 has 3.000000e+00

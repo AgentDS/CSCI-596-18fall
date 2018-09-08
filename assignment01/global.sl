@@ -1,6 +1,6 @@
 #!/bin/bash
 #SBATCH --ntasks-per-node=4
-#SBATCH --nodes=2
+#SBATCH --nodes=1
 #SBATCH --time=00:00:59
 #SBATCH --output=global.out
 #SBATCH -A lc_an2

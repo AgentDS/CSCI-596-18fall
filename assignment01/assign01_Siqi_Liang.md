@@ -13,23 +13,23 @@ Code for plotting:
 ```python
 from matplotlib import pyplot as plt
 import numpy as np
-# load data from MDout.txt
+# data processing
 data_path = './MDtime.txt'
 data = np.loadtxt(data_path)
 N_data = data[:,0]
-logN = np.log10(N_data)
+log10N = np.log10(N_data)
 T_data = data[:,1]
-logT = np.log10(T_data)
+log10T = np.log10(T_data)
 
-# plot and save the figure
-plt.plot(logN, logT,'ro-')
+# plot the figure
+plt.plot(log10N, log10T,'ro-')
 plt.xlabel('$log_{10}(N)$')
 plt.ylabel('$log_{10}(T)$')
 plt.title('log-log plot of T vs. N')
-plt.xlim((8,11.5))
-plt.ylim((-1,5))
+plt.xlim((3.4,5.0))
+plt.ylim((-0.5,2.5))
 plt.grid(True)
-plt.savefig('./logN_logT_plot.png',dpi=300)
+plt.savefig('./log10N_log10T_plot.png',dpi=200)
 ```
 
 
@@ -52,8 +52,8 @@ $$
 Use Python to perform this algorithm:
 
 ```python
-X = np.hstack((logN.reshape(len(logN), 1), np.ones(shape=(len(logN),1))))
-y = logT.reshape(len(logT), 1)
+X = np.hstack((log10N.reshape(len(log10N), 1), np.ones(shape=(len(log10N),1))))
+y = log10T.reshape(len(log10T), 1)
 pinv = np.linalg.pinv(np.matmul(X.T, X))
 theta = np.matmul(np.matmul(pinv, X.T), y)
 print('alpha = %.4f, beta = %.4f' % (theta[0], theta[1]))
@@ -165,4 +165,3 @@ Node 0 has 0.000000e+00
 Global average = 1.500000e+00
 Node 3 has 3.000000e+00
 ```
-

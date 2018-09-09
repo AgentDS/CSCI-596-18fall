@@ -115,59 +115,6 @@ int main(int argc, char *argv[]) {
 }
 ```
 
-##### 4 Processors
-
-File __global.sl__:
-
-```bash
-#!/bin/bash
-#SBATCH --ntasks-per-node=4
-#SBATCH --nodes=1
-#SBATCH --time=00:00:59
-#SBATCH --output=global.out
-#SBATCH -A lc_an2
-WORK_HOME=/home/rcf-proj/an2/Your_ID
-cd $WORK_HOME
-srun -n $SLURM_NTASKS --mpi=pmi2 ./global
-srun -n             4 --mpi=pmi2 ./global
-```
-
-Output result __global.out__:
-
-```
-/var/spool/slurm/slurmd/spool/job1476346/slurm_script: line 8: cd: /home/rcf-proj/an2/Your_ID: No such file or directory
-----------------------------------------
-Begin SLURM Prolog Sat 08 Sep 2018 04:25:03 PM PDT 
-Job ID:        1476346
-Username:      liangsiq
-Accountname:   lc_an2
-Name:          global.sl
-Partition:     quick
-Nodes:         hpc1120
-TasksPerNode:  4
-CPUSPerTask:   Default[1]
-TMPDIR:        /tmp/1476346.quick
-SCRATCHDIR:    /staging/scratch/1476346
-Cluster:       uschpc
-HSDA Account:  false
-End SLURM Prolog
-----------------------------------------
-Node 0 has 0.000000e+00
-Global average = 1.500000e+00
-Node 3 has 3.000000e+00
-Node 1 has 1.000000e+00
-Node 2 has 2.000000e+00
-Node 1 has 1.000000e+00
-Node 0 has 0.000000e+00
-Global average = 1.500000e+00
-Node 2 has 2.000000e+00
-Node 3 has 3.000000e+00
-```
-
-
-
-##### 8 Processors
-
 File __global.sl__:
 
 ```bash

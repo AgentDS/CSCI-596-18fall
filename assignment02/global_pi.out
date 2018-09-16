@@ -1,0 +1,12 @@
+Number of processors: 8
+Value of Pi = 3.141593e+00
+Execution time (s) = 4.895091e-02
+Number of processors: 4
+Value of Pi = 3.141593e+00
+Execution time (s) = 5.103588e-02
+Number of processors: 2
+Value of Pi = 3.141593e+00
+Execution time (s) = 7.986498e-02
+Number of processors: 1
+Value of Pi = 3.141593e+00
+Execution time (s) = 1.413810e-01

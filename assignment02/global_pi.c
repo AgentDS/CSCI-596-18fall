@@ -44,6 +44,7 @@ int main(int argc, char *argv[]) {
     
 
     if (myid == 0) {
+        printf("Number of processors: %d\n", nprocs);
         printf("Value of Pi = %le\n", pi);
         printf("Execution time (s) = %le\n", cpu2 - cpu1);
     }

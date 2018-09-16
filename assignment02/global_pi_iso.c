@@ -1,6 +1,6 @@
 #include "mpi.h"
 #include <stdio.h>
-#define NBIN 10000000
+#define NPERP 10000000
 int nprocs;  /* Number of processors */
 int myid;    /* My rank */
 
@@ -21,15 +21,18 @@ double global_sum(double partial) {
     return mydone;
 }
 
+
 int main(int argc, char *argv[]) {
     double partial, sum = 0.0, avg, step, x, pi, cpu1, cpu2;
     int i;
-    
-    step = 1.0/NBIN;
+    int NBIN;
 
     MPI_Init(&argc, &argv);
     MPI_Comm_rank(MPI_COMM_WORLD, &myid);
     MPI_Comm_size(MPI_COMM_WORLD, &nprocs);
+    
+    NBIN = NPERP*nprocs;
+    step = 1.0/NBIN;
     
     cpu1 = MPI_Wtime();
     for(i=myid;i<NBIN;i+=nprocs){
@@ -44,8 +47,9 @@ int main(int argc, char *argv[]) {
     
 
     if (myid == 0) {
+        printf("Number of processes: %d\n", nprocs);
         printf("Value of Pi = %le\n", pi);
-        printf("Execution time (s) = %le\n", cpu2 - cpu1);
+        printf("Execution time (s) = %le s\n", cpu2 - cpu1);
     }
 
     MPI_Finalize();

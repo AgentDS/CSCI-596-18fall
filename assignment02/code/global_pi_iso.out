@@ -1,0 +1,12 @@
+Number of processes: 8
+Value of Pi = 3.141593e+00
+Execution time (s) = 3.661902e-01 
+Number of processes: 4
+Value of Pi = 3.141593e+00
+Execution time (s) = 3.574691e-01 
+Number of processes: 2
+Value of Pi = 3.141593e+00
+Execution time (s) = 3.187609e-01 
+Number of processes: 1
+Value of Pi = 3.141593e+00
+Execution time (s) = 3.155441e-01 

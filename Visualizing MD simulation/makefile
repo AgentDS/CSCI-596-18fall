@@ -1,0 +1,3 @@
+atomv: atomv.c atomv.h
+	cc -o atomv atomv.c -framework OpenGL -framework GLUT -framework Cocoa
+

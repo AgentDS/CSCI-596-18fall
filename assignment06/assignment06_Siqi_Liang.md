@@ -1,6 +1,6 @@
 # Assignment06
 
-__From Siqi Liang (liangsiq@usc.edu)__
+__From Siqi Liang __
 
 ## Part I
 
